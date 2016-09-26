@@ -17,8 +17,9 @@
 #define Q_MIN -(1<<15)
 #define Q_MAX_L ((1L<<15)-1L)
 #define Q_MIN_L -(1L<<15)
-#define Q_SCALE_F (float)(1L<<Q)
-#define Q_UNITY (1<<Q)
+
+#define Q_SCALE_F(Q) (float)(1L<<Q)
+#define Q_UNITY(Q) (1<<Q)
 
 #define MEAN_SHIFT 2
 #define MEAN_N (1<<MEAN_SHIFT)
@@ -47,6 +48,7 @@ class FractionalMath
 		unsigned int _mean_ct;
 		int _mean_shift;
 		long _mean_val;
+		uint8 _q_val;
 };
 
 

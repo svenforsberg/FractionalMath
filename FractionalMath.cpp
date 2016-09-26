@@ -2,9 +2,9 @@
 #include "FractionalMath.h"
 
 
-FractionalMath::FractionalMath(int q_val)
+FractionalMath::FractionalMath(uint8 q_val)
 {
-	
+	_q_val=q_val;
 }
 
 
@@ -33,8 +33,8 @@ static inline int FractionalMath::multiplyInt(int a,int b) //OK!
   int result;
   long temp;
   temp=(long)a * (long)b;
-  temp+=(1L << (Q-1));
-  result=sat16(temp >> Q);
+  temp+=(1L << (_q_val-1));
+  result=sat16(temp >> _q_val);
   return result;
 }
 
@@ -52,7 +52,7 @@ static inline int FractionalMath::divInt(int a, int b)
 {
   int result;
   long temp;
-  temp=(long)a << Q;
+  temp=(long)a << _q_val;
   if ((temp >= 0 && b >= 0) || (temp < 0 && b < 0))
     temp += b / 2;
   else
@@ -81,7 +81,7 @@ void FractionalMath::tic_m()
   Timestamp=millis();
 }
 
-int toc_m()
+int FractionalMath::toc_m()
 {
   unsigned long dT=(millis()-Timestamp);
   Serial.print("Elapsed milliseconds=");
@@ -93,7 +93,7 @@ void FractionalMath::tic_u()
   Timestamp=micros();
 }
 
-int toc_u()
+int FractionalMath::toc_u()
 {
   unsigned long dT=(micros()-Timestamp);
   Serial.print("Elapsed microseconds=");
@@ -115,13 +115,13 @@ int FractionalMath::float2Int(float x) //OK!
 {
   long temp;
   int result;
-  if(x>=0) temp=(long)(x*Q_SCALE_F+0.5);
-  else temp=(long)(x*Q_SCALE_F-0.5);
+  if(x>=0) temp=(long)(x*Q_SCALE_F(_q_val)+0.5);
+  else temp=(long)(x*Q_SCALE_F(_q_val)-0.5);
   result=sat16(temp);
   return result;
 }
 
 float FractionalMath::int2Float(int x) //OK!
 {
-  return ((float)x/Q_SCALE_F);
+  return ((float)x/Q_SCALE_F(_q_val));
 }
