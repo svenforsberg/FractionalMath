@@ -2,13 +2,13 @@
 #include "FractionalMath.h"
 
 
-FractionalMath::FractionalMath(uint8 q_val)
+FractionalMath::FractionalMath(char q_val)
 {
 	_q_val=q_val;
 }
 
 
-static inline int FractionalMath::sat16(long x) //OK!
+inline int FractionalMath::sat16(long x) //OK!
 {
   if(x > Q_MAX_L){
     return Q_MAX; //Overflow at 32767.
@@ -21,14 +21,14 @@ static inline int FractionalMath::sat16(long x) //OK!
   }
 }
 
-static inline int FractionalMath::addInt(int a,int b) //OK!
+inline int FractionalMath::addInt(int a,int b) //OK!
 {
   long temp;
   temp=(long)a+(long)b;
   return sat16(temp);
 }
 
-static inline int FractionalMath::multiplyInt(int a,int b) //OK!
+inline int FractionalMath::multiplyInt(int a,int b) //OK!
 {
   int result;
   long temp;
@@ -38,7 +38,7 @@ static inline int FractionalMath::multiplyInt(int a,int b) //OK!
   return result;
 }
 
-static inline int FractionalMath::multiplyIntQ0(int a,int b) //OK
+inline int FractionalMath::multiplyIntQ0(int a,int b) //OK
 {
   int result;
   long temp;
@@ -48,7 +48,7 @@ static inline int FractionalMath::multiplyIntQ0(int a,int b) //OK
   return result;
 }
 
-static inline int FractionalMath::divInt(int a, int b)
+inline int FractionalMath::divInt(int a, int b)
 {
   int result;
   long temp;
@@ -62,7 +62,7 @@ static inline int FractionalMath::divInt(int a, int b)
   return result;
 }
 
-static inline int FractionalMath::divIntQ0(long a, long b) //OK!
+inline int FractionalMath::divIntQ0(long a, long b) //OK!
 {
   int result;
   long temp;
@@ -78,24 +78,24 @@ static inline int FractionalMath::divIntQ0(long a, long b) //OK!
 
 void FractionalMath::tic_m()
 {
-  Timestamp=millis();
+  _timestamp=millis();
 }
 
-int FractionalMath::toc_m()
+void FractionalMath::toc_m()
 {
-  unsigned long dT=(millis()-Timestamp);
+  unsigned long dT=(millis()-_timestamp);
   Serial.print("Elapsed milliseconds=");
   Serial.println(dT);
 }
 
 void FractionalMath::tic_u()
 {
-  Timestamp=micros();
+  _timestamp=micros();
 }
 
-int FractionalMath::toc_u()
+void FractionalMath::toc_u()
 {
-  unsigned long dT=(micros()-Timestamp);
+  unsigned long dT=(micros()-_timestamp);
   Serial.print("Elapsed microseconds=");
   Serial.println(dT);
 }

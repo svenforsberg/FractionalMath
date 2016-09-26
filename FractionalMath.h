@@ -1,17 +1,19 @@
 /*
-	Mean.h - Library for computing mean value of fixed point numbers.
-	Number of values=2^mean_shift, i.e. mean shift=3 gives 2^3=8 values.
-	Maximum number of values per average output=32768 (mean_shift=15)
+	FractionalMath.h - Library for fixed point mathematics on the Arduino. Supply Q value in constructor.
+	Q	Largest value	Precision
+	15	1.0				0.00003
+	14	2.0				0.00006
+	13	4.0				0.00012
+	12	8.0				0.00024
+	11	16.0			0.00049
+	10	32.0			0.00098
+	9	64.0			0.00195
+	8	128.0			0.00391
 */
 #ifndef Mean_h
 #define Mean_h
 
 #include "Arduino.h"
-
-//#define Q 12 //0.0002 Max 8 //3.147 0.787
-//#define Q 13 //0.0001 Max 4 //3.136 0.784
-#define Q 14 //0.00006 Max 2 //0.785339
-//#define Q 15 //0.00003 Max 1 //0.785492
 
 #define Q_MAX ((1<<15)-1)
 #define Q_MIN -(1<<15)
@@ -21,22 +23,20 @@
 #define Q_SCALE_F(Q) (float)(1L<<Q)
 #define Q_UNITY(Q) (1<<Q)
 
-#define MEAN_SHIFT 2
-#define MEAN_N (1<<MEAN_SHIFT)
-
 #define _ABS(X) (X ^ (X>>15))-(X>>15)
 #define ABS_16(X) (X==-32768 ? (32767) : _ABS(X))
 
 class FractionalMath
 {
 	public:
-		FractionalMath(int q_val);
+		FractionalMath(char q_val);
 		int CalcMean(int indata,int *utdata);
-		static inline int sat16(long x); //OK!
-		static inline int addInt(int a,int b); //OK!
-		static inline int multiplyIntQ0(int a,int b);
-		static inline int divInt(int a, int b);
-		static inline int divIntQ0(long a, long b);
+		inline int sat16(long x);
+		inline int addInt(int a,int b);
+		inline int multiplyIntQ0(int a,int b);
+		inline int divInt(int a, int b);
+		inline int divIntQ0(long a, long b);
+		inline int multiplyInt(int a,int b);
 		void tic_m();
 		void toc_m();
 		void tic_u();
@@ -48,10 +48,8 @@ class FractionalMath
 		unsigned int _mean_ct;
 		int _mean_shift;
 		long _mean_val;
-		uint8 _q_val;
+		char _q_val;
+		unsigned long _timestamp;
 };
-
-
-
 
 #endif
