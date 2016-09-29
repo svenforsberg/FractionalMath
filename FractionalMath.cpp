@@ -8,7 +8,7 @@ FractionalMath::FractionalMath(char q_val)
 }
 
 
-inline int FractionalMath::sat16(long x) //OK!
+int FractionalMath::sat16(long x) //OK!
 {
   if(x > Q_MAX_L){
     return Q_MAX; //Overflow at 32767.
@@ -21,14 +21,14 @@ inline int FractionalMath::sat16(long x) //OK!
   }
 }
 
-inline int FractionalMath::addInt(int a,int b) //OK!
+int FractionalMath::addInt(int a,int b) //OK!
 {
   long temp;
   temp=(long)a+(long)b;
   return sat16(temp);
 }
 
-inline int FractionalMath::multiplyInt(int a,int b) //OK!
+int FractionalMath::multiplyInt(int a,int b) //OK!
 {
   int result;
   long temp;
@@ -38,7 +38,7 @@ inline int FractionalMath::multiplyInt(int a,int b) //OK!
   return result;
 }
 
-inline int FractionalMath::multiplyIntQ0(int a,int b) //OK
+int FractionalMath::multiplyIntQ0(int a,int b) //OK
 {
   int result;
   long temp;
@@ -48,7 +48,7 @@ inline int FractionalMath::multiplyIntQ0(int a,int b) //OK
   return result;
 }
 
-inline int FractionalMath::divInt(int a, int b)
+int FractionalMath::divInt(int a, int b)
 {
   int result;
   long temp;
@@ -62,7 +62,7 @@ inline int FractionalMath::divInt(int a, int b)
   return result;
 }
 
-inline int FractionalMath::divIntQ0(long a, long b) //OK!
+int FractionalMath::divIntQ0(long a, long b) //OK!
 {
   int result;
   long temp;
@@ -100,7 +100,7 @@ void FractionalMath::toc_u()
   Serial.println(dT);
 }
 
-inline int FractionalMath::quick_rms(int data[],int N) //OK. Calcluates average rectified value! 
+int FractionalMath::quick_rms(int data[],int N) //OK. Calcluates average rectified value! 
 {
   int i=0;
   long sum=0;

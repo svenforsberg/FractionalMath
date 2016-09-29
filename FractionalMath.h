@@ -10,8 +10,8 @@
 	9	64.0			0.00195
 	8	128.0			0.00391
 */
-#ifndef Mean_h
-#define Mean_h
+#ifndef FracMath_h
+#define FracMath_h
 
 #include "Arduino.h"
 
@@ -31,17 +31,17 @@ class FractionalMath
 	public:
 		FractionalMath(char q_val);
 		int CalcMean(int indata,int *utdata);
-		inline int sat16(long x);
-		inline int addInt(int a,int b);
-		inline int multiplyIntQ0(int a,int b);
-		inline int divInt(int a, int b);
-		inline int divIntQ0(long a, long b);
-		inline int multiplyInt(int a,int b);
+		int sat16(long x);
+		int addInt(int a,int b);
+		int multiplyIntQ0(int a,int b);
+		int divInt(int a, int b);
+		int divIntQ0(long a, long b);
+		int multiplyInt(int a,int b);
 		void tic_m();
 		void toc_m();
 		void tic_u();
 		void toc_u();
-		inline int quick_rms(int data[],int N);
+		int quick_rms(int data[],int N);
 		int float2Int(float x);
 		float int2Float(int x);
 	private:
